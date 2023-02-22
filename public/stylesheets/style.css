@@ -10769,5 +10769,12 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.main {
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  background-image: url(../images/background.png);
+  background-size: cover;
+}
 
 /*# sourceMappingURL=style.css.map */

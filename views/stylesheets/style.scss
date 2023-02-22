@@ -1,1 +1,9 @@
 @import "../../node_modules/bootstrap/scss/bootstrap";
+
+.main {
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    background-image: url(../images/background.png);
+    background-size: cover;
+}

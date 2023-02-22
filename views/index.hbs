@@ -1,2 +1,95 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<div class="main row justify-content-end">
+  <div
+    class="col-12 col-md-6 shadow rounded m-5 p-0 bg-white text-center"
+    style="--bs-bg-opacity: .75;"
+  >
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link active"
+          id="park-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#park-tab-pane"
+          type="button"
+          role="tab"
+          aria-controls="park-tab-pane"
+          aria-selected="true"
+        >Park Car</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="find-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#find-tab-pane"
+          type="button"
+          role="tab"
+          aria-controls="find-tab-pane"
+          aria-selected="false"
+        >Find Car</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="recent-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#recent-tab-pane"
+          type="button"
+          role="tab"
+          aria-controls="recent-tab-pane"
+          aria-selected="false"
+        >Recent Cars</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="all-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#all-tab-pane"
+          type="button"
+          role="tab"
+          aria-controls="all-tab-pane"
+          aria-selected="false"
+        >All Cars</button>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div
+        class="tab-pane fade show active"
+        id="park-tab-pane"
+        role="tabpanel"
+        aria-labelledby="park-tab"
+        tabindex="0"
+      >
+        {{> park_car }}
+      </div>
+      <div
+        class="tab-pane fade"
+        id="find-tab-pane"
+        role="tabpanel"
+        aria-labelledby="find-tab"
+        tabindex="0"
+      >
+        {{> find_car }}
+      </div>
+      <div
+        class="tab-pane fade"
+        id="recent-tab-pane"
+        role="tabpanel"
+        aria-labelledby="recent-tab"
+        tabindex="0"
+      >
+        {{> recent_cars }}
+      </div>
+      <div
+        class="tab-pane fade"
+        id="all-tab-pane"
+        role="tabpanel"
+        aria-labelledby="all-tab"
+        tabindex="0"
+      >
+        {{> all_cars }}
+      </div>
+    </div>
+  </div>
+</div>
