@@ -1,0 +1,35 @@
+{
+  "name": "parking-lot",
+  "version": "0.0.0",
+  "description": "JS exercise for DreamSpring Training Program",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon & npm run scss",
+    "scss": "sass --watch views/stylesheets/style.scss public/stylesheets/style.css",
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kushal-dreamspring/parking-lot.git"
+  },
+  "author": "Kushal-DreamSpring",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kushal-dreamspring/parking-lot/issues"
+  },
+  "homepage": "https://kushal-dreamspring.github.io/parking-lot",
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "hbs": "~4.0.4",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "sass": "^1.58.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
