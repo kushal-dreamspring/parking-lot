@@ -4,6 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var hbs = require("hbs");
+const controller = require("./controllers/parking-controller");
 
 var app = express();
 
@@ -18,8 +19,62 @@ app.use(express.static("public"));
 
 hbs.registerPartials(path.join(__dirname, "views", "partials"));
 
+app.post("/park", function (req, res, next) {
+  controller
+    .parkCar(req.body.registration_number, req.body.timestamp)
+    .then((response) => {
+      if (response.error) res.status(400).send(response);
+      else res.send(response);
+    });
+});
+
+app.post("/unpark", function (req, res, next) {
+  controller.unparkCar(req.body.registration_number).then((response) => {
+    if (response.error) res.status(400).send(response);
+    else res.send(response);
+  });
+});
+
 app.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
+  controller.initialize().then(() => {
+    res.render("index", {
+      title: "Park Car | Kushal Parking",
+      active: { park_car: true },
+    });
+  });
+});
+
+app.get("/find-car", function (req, res, next) {
+  controller.initialize().then(() => {
+    res.render("find-car", {
+      title: "Find Car | Kushal Parking",
+      active: { find_car: true },
+    });
+  });
+});
+
+app.get("/recent-cars", function (req, res, next) {
+  controller.getRecentCars().then((response) => {
+    if (response.error) res.status(400).send(response);
+    else
+      res.render("recent-cars", {
+        title: "Recent Cars | Kushal Parking",
+        active: { recent_cars: true },
+        recent_vehicles: response.response,
+      });
+  });
+});
+
+app.get("/all-cars", function (req, res, next) {
+  controller.getAllCars().then((response) => {
+    if (response.error) res.status(400).send(response);
+    else
+      res.render("all-cars", {
+        title: "All Cars | Kushal Parking",
+        active: { all_cars: true },
+        all_vehicles: response.response,
+      });
+  });
 });
 
 app.use(function (req, res, next) {

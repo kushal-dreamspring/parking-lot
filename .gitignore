@@ -62,3 +62,5 @@ typings/
 
 # DS_store file
 .DS_store
+
+db.json

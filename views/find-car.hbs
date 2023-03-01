@@ -1,16 +1,15 @@
 <div
-  class="tab-pane fade {{#if active.park_car}}show active{{/if}}"
-  id="park-tab-pane"
+  class="tab-pane fade {{#if active.find_car}}show active{{/if}}"
+  id="find-tab-pane"
   role="tabpanel"
-  aria-labelledby="park-tab"
-  tabindex="0"
+  aria-labelledby="find-tab"
+  tabindex="1"
 >
-  <form class="p-4" onsubmit="park_car(event)">
+  <form class="p-4" onsubmit="unpark_car(event)">
     <div class="mb-3">
       <label for="registrationNumber" class="form-label">Vehicle Registration
         Number</label>
       <input
-        name="registration-number"
         type="text"
         class="form-control"
         id="registrationNumber"
@@ -19,6 +18,6 @@
       <div id="registrationHelp" class="form-text">Enter your 10 character
         Registration Number</div>
     </div>
-    <button type="submit" class="btn btn-primary">Park Car</button>
+    <button type="submit" class="btn btn-primary">Find Car</button>
   </form>
 </div>
