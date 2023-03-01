@@ -16,6 +16,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static("public"));
+app.use('/stylesheets', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')))
+app.use('/javascripts', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
 
 hbs.registerPartials(path.join(__dirname, "views", "partials"));
 
