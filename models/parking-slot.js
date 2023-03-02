@@ -29,7 +29,6 @@ class ParkingSlot {
   }
 
   unparkCar() {
-    delete this.car;
     this.car = null;
     this.timestamp = 0;
   }

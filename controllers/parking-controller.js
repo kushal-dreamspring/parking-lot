@@ -105,7 +105,6 @@ exports.getAllCars = async () => {
 
     return {
       response: lot
-        .sort((a, b) => a.getTimestamp() - b.getTimestamp())
         .filter((el) => !el.isEmpty())
         .map((el) => ({
           ...el,

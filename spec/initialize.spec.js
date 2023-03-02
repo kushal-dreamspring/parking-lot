@@ -2,9 +2,12 @@ const fs = require("fs").promises;
 const path = require("path");
 
 const controller = require("../controllers/parking-controller");
+const helper = require("./helper/db.helper");
 const ParkingSlot = require("../models/parking-slot");
 
 describe("Initialize suite", function () {
+  beforeEach(helper.deleteDB);
+
   it("should initialize the database ", async function () {
     await controller.initialize();
     try {
@@ -17,4 +20,6 @@ describe("Initialize suite", function () {
       console.log(err);
     }
   });
+
+  // afterEach(helper.deleteDB);
 });
