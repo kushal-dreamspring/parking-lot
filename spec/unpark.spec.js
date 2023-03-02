@@ -10,7 +10,7 @@ describe("Unpark Car Suite", function () {
 
   it("should not unpark a car which is not parked", async function () {
     try {
-      const data = await controller.unparkCar("A");
+      const data = await controller.unparkCar("ab12cd1234");
 
       expect(data).toEqual({ error: "Vehicle not found" });
     } catch (err) {
@@ -20,9 +20,9 @@ describe("Unpark Car Suite", function () {
 
   it("should unpark a parked car", async function () {
     try {
-      await controller.parkCar("A", Date.now());
+      await controller.parkCar("ab12cd1234", Date.now());
 
-      await controller.unparkCar("A");
+      await controller.unparkCar("ab12cd1234");
 
       const data = await fs.readFile(path.join("db", "db.json"), "utf8");
       const lot = [...Array(10).keys()].map((i) => new ParkingSlot(i));

@@ -8,23 +8,23 @@ describe("Recent Car Suite", function () {
     try {
       const timestamp = Date.now();
       for (let i = 0; i < 6; i++)
-        await controller.parkCar(i, timestamp + i * 1000);
+        await controller.parkCar("ab12cd123" + i.toString(), timestamp + i * 1000);
 
       const data = JSON.stringify(await controller.getRecentCars());
       const recentCars = {
         response: [
           {
-            car: { registration_number: 5 },
+            car: { registration_number: "ab12cd1235" },
             slot_no: 5,
             timestamp: new Date(timestamp + 5000).toLocaleString(),
           },
           {
-            car: { registration_number: 4 },
+            car: { registration_number: "ab12cd1234" },
             slot_no: 4,
             timestamp: new Date(timestamp + 4000).toLocaleString(),
           },
           {
-            car: { registration_number: 3 },
+            car: { registration_number: "ab12cd1233" },
             slot_no: 3,
             timestamp: new Date(timestamp + 3000).toLocaleString(),
           },
@@ -45,38 +45,38 @@ describe("All Cars Suite", function () {
     try {
       const timestamp = Date.now();
       for (let i = 0; i < 6; i++)
-        await controller.parkCar(i, timestamp + i * 1000);
+        await controller.parkCar("ab12cd123" + i.toString(), timestamp + i * 1000);
 
       const data = JSON.stringify(await controller.getAllCars());
       const recentCars = {
         response: [
           {
-            car: { registration_number: 0 },
+            car: { registration_number: "ab12cd1230" },
             slot_no: 0,
             timestamp: new Date(timestamp).toLocaleString(),
           },
           {
-            car: { registration_number: 1 },
+            car: { registration_number: "ab12cd1231" },
             slot_no: 1,
             timestamp: new Date(timestamp + 1000).toLocaleString(),
           },
           {
-            car: { registration_number: 2 },
+            car: { registration_number: "ab12cd1232" },
             slot_no: 2,
             timestamp: new Date(timestamp + 2000).toLocaleString(),
           },
           {
-            car: { registration_number: 3 },
+            car: { registration_number: "ab12cd1233" },
             slot_no: 3,
             timestamp: new Date(timestamp + 3000).toLocaleString(),
           },
           {
-            car: { registration_number: 4 },
+            car: { registration_number: "ab12cd1234" },
             slot_no: 4,
             timestamp: new Date(timestamp + 4000).toLocaleString(),
           },
           {
-            car: { registration_number: 5 },
+            car: { registration_number: "ab12cd1235" },
             slot_no: 5,
             timestamp: new Date(timestamp + 5000).toLocaleString(),
           },

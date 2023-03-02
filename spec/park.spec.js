@@ -8,9 +8,19 @@ const ParkingSlot = require("../models/parking-slot");
 describe("Park Car Suite", function () {
   beforeEach(helper.newDB);
 
-  it("should park a car", async function () {
+  it("should not park a car with invalid registration number", async function () {
     try {
-      const registration_number = "A";
+      const data = await controller.parkCar("A", Date.now());
+
+      expect(data).toEqual({ error: "Invalid Registration Number" });
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+  it("should park a car with valid registration number", async function () {
+    try {
+      const registration_number = "abcdefghij";
       const timestamp = Date.now();
       await controller.parkCar(registration_number, timestamp);
 
@@ -31,9 +41,9 @@ describe("Park Car Suite", function () {
   it("should not park more than 10 cars", async function () {
     try {
       for (let i = 0; i < 10; i++)
-        await controller.parkCar(i.toString(), Date.now());
+        await controller.parkCar("ab12cd123" + i.toString(), Date.now());
 
-      const data = await controller.parkCar(10, Date.now());
+      const data = await controller.parkCar("ab12cd1240", Date.now());
 
       expect(data).toEqual({ error: "Parking Lot is Full" });
     } catch (err) {
@@ -41,11 +51,11 @@ describe("Park Car Suite", function () {
     }
   });
 
-  it("should not park same park twice", async function () {
+  it("should not park same car twice", async function () {
     try {
-      await controller.parkCar("A", Date.now());
+      await controller.parkCar("ab12cd1234", Date.now());
 
-      const data = await controller.parkCar("A", Date.now());
+      const data = await controller.parkCar("ab12cd1234", Date.now());
 
       expect(data).toEqual({ error: "Vehicle already parked" });
     } catch (err) {

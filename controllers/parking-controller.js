@@ -1,4 +1,5 @@
 const path = require("path");
+const Car = require("../models/car");
 const fs = require("fs").promises;
 
 const ParkingSlot = require("../models/parking-slot");
@@ -21,6 +22,9 @@ exports.initialize = async () => {
 
 exports.parkCar = async (registration_number, timestamp) => {
   try {
+    if (!Car.isValidRegistrationNumber(registration_number))
+      return { error: "Invalid Registration Number" };
+
     const data = await fs.readFile(path.join("db", "db.json"), "utf8");
     const lot = decode(data);
 
