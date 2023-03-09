@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon -e js,json,hbs & npm run scss",
+    "build": "mkdir db; touch db/db.json",
     "scss": "sass --watch views/stylesheets/style.scss public/stylesheets/style.css",
     "test": "jasmine"
   },
