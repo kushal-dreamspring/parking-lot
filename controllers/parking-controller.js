@@ -9,10 +9,9 @@ const lot_size = 10;
 
 exports.initialize = async () => {
   try {
-    try {
-      await fs.readFile(path.join("db", "db.json"), "utf8");
-    } catch (err1) {
-      const lot = [...Array(lot_size).keys()].map((i) => new ParkingSlot(i));
+    let lot = await fs.readFile(path.join("db", "db.json"), "utf8");
+    if (!lot) {
+      lot = [...Array(lot_size).keys()].map((i) => new ParkingSlot(i));
       await fs.writeFile(path.join("db", "db.json"), JSON.stringify(lot));
     }
   } catch (err) {
