@@ -4,7 +4,7 @@ class Car {
   }
 
   static isValidRegistrationNumber(registration_number) {
-    const regex = /\w{2}(\w|\d){8}$/;
+    const regex = /^[A-Za-z]{2}\w{8}$/;
     return regex.test(registration_number);
   }
 
