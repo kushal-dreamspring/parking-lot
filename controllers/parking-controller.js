@@ -53,7 +53,7 @@ exports.parkCar = async (registration_number, timestamp) => {
   }
 };
 
-exports.unparkCar = async (registration_number) => {
+exports.getCarSlot = async (registration_number) => {
   try {
     const data = await fs.readFile(path.join("db", "db.json"), "utf8");
 
@@ -63,7 +63,6 @@ exports.unparkCar = async (registration_number) => {
     for (const slot of lot) {
       const car = slot.getCar();
       if (car && car.getRegistrationNumber() === registration_number) {
-        slot.unparkCar();
         index = slot.getSlotNumber();
         break;
       }
@@ -71,9 +70,22 @@ exports.unparkCar = async (registration_number) => {
 
     if (index === -1) return { error: "Vehicle not found" };
 
+    return { response: index };
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+exports.unparkCar = async (slot_number) => {
+  try {
+    const data = await fs.readFile(path.join("db", "db.json"), "utf8");
+
+    const lot = decode(data);
+    lot[slot_number].unparkCar();
+
     await fs.writeFile(path.join("db", "db.json"), JSON.stringify(lot));
 
-    return { response: index };
+    return { response: slot_number };
   } catch (err) {
     console.log(err);
   }
@@ -87,9 +99,9 @@ exports.getRecentCars = async () => {
 
     return {
       response: lot
-        .sort((a, b) => b.getTimestamp() - a.getTimestamp())
         .filter((el) => !el.isEmpty())
-        .filter((_, i) => i <= 2)
+        .sort((a, b) => b.getTimestamp() - a.getTimestamp())
+        .slice(0, 3)
         .map((el) => ({
           ...el,
           timestamp: new Date(el.timestamp).toLocaleString(),

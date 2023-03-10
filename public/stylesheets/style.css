@@ -6,4 +6,13 @@
   background-size: cover;
 }
 
+.tab-pane {
+  height: 74vh;
+  overflow: auto;
+}
+
+.table {
+  width: 95%;
+}
+
 /*# sourceMappingURL=style.css.map */

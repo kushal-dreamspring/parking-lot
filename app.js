@@ -16,8 +16,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static("public"));
-app.use('/stylesheets', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')))
-app.use('/javascripts', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
+app.use(
+  "/stylesheets",
+  express.static(path.join(__dirname, "node_modules/bootstrap/dist/css"))
+);
+app.use(
+  "/javascripts",
+  express.static(path.join(__dirname, "node_modules/bootstrap/dist/js"))
+);
 
 hbs.registerPartials(path.join(__dirname, "views", "partials"));
 
@@ -30,8 +36,15 @@ app.post("/park", function (req, res, next) {
     });
 });
 
+app.get("/car-slot", function (req, res, next) {
+  controller.getCarSlot(req.query.registration_number).then((response) => {
+    if (response.error) res.status(400).send(response);
+    else res.send(response);
+  });
+});
+
 app.post("/unpark", function (req, res, next) {
-  controller.unparkCar(req.body.registration_number).then((response) => {
+  controller.unparkCar(req.body.slot_number).then((response) => {
     if (response.error) res.status(400).send(response);
     else res.send(response);
   });

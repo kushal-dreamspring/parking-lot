@@ -5,7 +5,7 @@
   aria-labelledby="find-tab"
   tabindex="1"
 >
-  <form class="p-4" onsubmit="unpark_car(event)">
+  <form class="p-4" onsubmit="get_car_slot(event)">
     <div class="mb-3">
       <label for="registrationNumber" class="form-label">Vehicle Registration
         Number</label>
@@ -14,10 +14,14 @@
         class="form-control"
         id="registrationNumber"
         aria-describedby="registrationHelp"
+        minlength="10"
+        maxlength="10"
       />
-      <div id="registrationHelp" class="form-text">Enter your 10 character
-        Registration Number</div>
+      <div id="registrationHelp" class="form-text">
+        Enter your 10 character Registration Number
+      </div>
     </div>
     <button type="submit" class="btn btn-primary">Find Car</button>
   </form>
+  <div id="liveAlertPlaceholder" class="p-4"></div>
 </div>

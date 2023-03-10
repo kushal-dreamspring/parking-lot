@@ -1,7 +1,16 @@
 .main {
-    overflow: hidden;
-    height: 100vh;
-    width: 100vw;
-    background-image: url(../images/background.png);
-    background-size: cover;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  background-image: url(../images/background.png);
+  background-size: cover;
+}
+
+.tab-pane {
+  height: 74vh;
+  overflow: auto;
+}
+
+.table {
+  width: 95%;
 }
