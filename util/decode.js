@@ -1,4 +1,4 @@
-const ParkingSlot = require("../models/parking-slot");
+const ParkingSlot = require("../models/parkingSlot");
 
 const decode = (string) => {
   const data = JSON.parse(string);

@@ -4,7 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var hbs = require("hbs");
-const controller = require("./controllers/parking-controller");
+const controller = require("./controllers/parkingController");
 
 var app = express();
 

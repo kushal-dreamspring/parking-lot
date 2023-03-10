@@ -2,7 +2,7 @@ const path = require("path");
 const Car = require("../models/car");
 const fs = require("fs").promises;
 
-const ParkingSlot = require("../models/parking-slot");
+const ParkingSlot = require("../models/parkingSlot");
 const decode = require("../util/decode");
 
 const lot_size = 10;
