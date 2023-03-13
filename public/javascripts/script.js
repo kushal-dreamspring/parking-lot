@@ -2,6 +2,7 @@ const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 function park_car(event) {
   event.preventDefault();
+  const alertPlaceholder = document.getElementById("parkAlertPlaceholder");
   const registration_number = event.target[0].value;
 
   fetch("/park", {
@@ -16,9 +17,10 @@ function park_car(event) {
   })
     .then((res) => res.json())
     .then((res) => {
-      if (res.error) alert(res.error, "danger");
+      if (res.error) alert(alertPlaceholder, res.error, "danger");
       else
         alert(
+          alertPlaceholder,
           `
             <h4 class="alert-heading">Car Parked!</h4>
             <p>Your Car has been parked at Slot <strong id="slot" class="text-success">${res.response}</strong></p>
@@ -34,14 +36,16 @@ function park_car(event) {
 
 function get_car_slot(event) {
   event.preventDefault();
+  const alertPlaceholder = document.getElementById("findAlertPlaceholder");
   const registration_number = event.target[0].value;
 
   fetch(`/car-slot?registration_number=${registration_number}`)
     .then((res) => res.json())
     .then((res) => {
-      if (res.error) alert(res.error, "danger");
+      if (res.error) alert(alertPlaceholder, res.error, "danger");
       else {
         alert(
+          alertPlaceholder,
           `
             <h4 class="alert-heading">Car Found!</h4>
             <p>Your Car is Parked at Slot <strong id="slot" class="text-success">${res.response}</strong></p>
@@ -59,6 +63,8 @@ function get_car_slot(event) {
 }
 
 function unpark_car(slot_number) {
+  const alertPlaceholder = document.getElementById("findAlertPlaceholder");
+
   fetch("/unpark", {
     method: "POST",
     headers: {
@@ -70,9 +76,10 @@ function unpark_car(slot_number) {
   })
     .then((res) => res.json())
     .then((res) => {
-      if (res.error) alert(res.error, "danger");
+      if (res.error) alert(alertPlaceholder, res.error, "danger");
       else {
         alert(
+          alertPlaceholder,
           `
             <h4 class="alert-heading">Car Unparked!</h4>
             <p>Your Car is unparked from Slot <strong id="slot" class="text-success">${res.response}</strong></p>
@@ -132,9 +139,7 @@ function get_all_cars() {
     });
 }
 
-const alert = (message, type) => {
-  const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
-
+const alert = (alertPlaceholder, message, type) => {
   alertPlaceholder.innerHTML = `<div class="alert alert-${type} alert-dismissible" role="alert">
     ${message}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
