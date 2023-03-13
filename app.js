@@ -59,36 +59,17 @@ app.get("/", function (req, res, next) {
   });
 });
 
-app.get("/find-car", function (req, res, next) {
-  controller.initialize().then(() => {
-    res.render("find-car", {
-      title: "Find Car | Kushal Parking",
-      active: { find_car: true },
-    });
-  });
-});
-
 app.get("/recent-cars", function (req, res, next) {
   controller.getRecentCars().then((response) => {
     if (response.error) res.status(400).send(response);
-    else
-      res.render("recent-cars", {
-        title: "Recent Cars | Kushal Parking",
-        active: { recent_cars: true },
-        recent_vehicles: response.response,
-      });
+    else res.send({ response: response.response });
   });
 });
 
 app.get("/all-cars", function (req, res, next) {
   controller.getAllCars().then((response) => {
     if (response.error) res.status(400).send(response);
-    else
-      res.render("all-cars", {
-        title: "All Cars | Kushal Parking",
-        active: { all_cars: true },
-        all_vehicles: response.response,
-      });
+    else res.send({ response: response.response });
   });
 });
 

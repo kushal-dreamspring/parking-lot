@@ -1,0 +1,27 @@
+<div
+  class="tab-pane fade show active"
+  id="park-tab-pane"
+  role="tabpanel"
+  aria-labelledby="park-tab"
+  tabindex="0"
+>
+  <form class="p-4" onsubmit="park_car(event)">
+    <div class="mb-3">
+      <label for="registrationNumber" class="form-label">Vehicle Registration
+        Number</label>
+      <input
+        name="registration-number"
+        type="text"
+        class="form-control"
+        id="registrationNumber"
+        aria-describedby="registrationHelp"
+        minlength="10"
+        maxlength="10"
+      />
+      <div id="registrationHelp" class="form-text">Enter your 10 character
+        Registration Number</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Park Car</button>
+  </form>
+  <div id="liveAlertPlaceholder" class="p-4"></div>
+</div>

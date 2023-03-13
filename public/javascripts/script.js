@@ -1,3 +1,5 @@
+const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
 function park_car(event) {
   event.preventDefault();
   const registration_number = event.target[0].value;
@@ -82,6 +84,54 @@ function unpark_car(slot_number) {
     .catch((err) => console.log(err));
 }
 
+function get_recent_cars() {
+  fetch("/recent-cars")
+    .then((res) => res.json())
+    .then((response) => {
+      const tbody = document.getElementById("recent-cars-table").children[1];
+      tbody.innerHTML = "";
+
+      for (let slot of response.response) {
+        const date = new Date(slot.timestamp);
+        slot.timestamp = Intl.DateTimeFormat("en-US", {
+          timeZone,
+          dateStyle: "medium",
+          timeStyle: "medium",
+        }).format(date);
+
+        tbody.innerHTML += `<tr>
+          <td>${slot.car.registration_number}</td>
+          <td>${slot.slot_no}</td>
+          <td>${slot.timestamp}</td>
+        </tr>`;
+      }
+    });
+}
+
+function get_all_cars() {
+  fetch("/all-cars")
+    .then((res) => res.json())
+    .then((response) => {
+      const tbody = document.getElementById("all-cars-table").children[1];
+      tbody.innerHTML = "";
+
+      for (let slot of response.response) {
+        const date = new Date(slot.timestamp);
+        slot.timestamp = Intl.DateTimeFormat("en-US", {
+          timeZone,
+          dateStyle: "medium",
+          timeStyle: "medium",
+        }).format(date);
+
+        tbody.innerHTML += `<tr>
+          <td>${slot.car.registration_number}</td>
+          <td>${slot.slot_no}</td>
+          <td>${slot.timestamp}</td>
+        </tr>`;
+      }
+    });
+}
+
 const alert = (message, type) => {
   const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
 
@@ -90,17 +140,3 @@ const alert = (message, type) => {
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>`;
 };
-
-const toLocalTimezone = () => {
-  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  for (row of document.getElementsByTagName("table")[0].tBodies[0].children) {
-    const date = new Date(row.children[2].innerHTML);
-    row.children[2].innerHTML = Intl.DateTimeFormat("en-US", {
-      timeZone,
-      dateStyle: "medium",
-      timeStyle: "medium",
-    }).format(date);
-  }
-};
-
-toLocalTimezone();

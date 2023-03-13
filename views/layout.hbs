@@ -16,29 +16,49 @@
       >
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
-            <a class="nav-link {{#if active.park_car}}active{{/if}}" href="/">
+            <a
+              class="nav-link active"
+              href="#"
+              data-bs-toggle="tab"
+              data-bs-target="#park-tab-pane"
+            >
               Park Car
             </a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link {{#if active.find_car}}active{{/if}}" href="/find-car">
+            <a
+              class="nav-link"
+              href="#"
+              data-bs-toggle="tab"
+              data-bs-target="#find-tab-pane"
+            >
               Find Car
             </a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link {{#if active.recent_cars}}active{{/if}}" href="/recent-cars">
+            <a
+              class="nav-link"
+              href="#"
+              data-bs-toggle="tab"
+              data-bs-target="#recent-tab-pane"
+              onclick="get_recent_cars()"
+            >
               Recent Cars
             </a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link {{#if active.all_cars}}active{{/if}}" href="/all-cars">
+            <a
+              class="nav-link"
+              href="#"
+              data-bs-toggle="tab"
+              data-bs-target="#all-tab-pane"
+              onclick="get_all_cars()"
+            >
               All Cars
             </a>
           </li>
         </ul>
-        <div class="tab-content" id="myTabContent">
-          {{{body}}}
-        </div>
+        {{{body}}}
       </div>
     </div>
     <script src="/javascripts/bootstrap.bundle.min.js"></script>
