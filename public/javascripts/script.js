@@ -82,11 +82,25 @@ function unpark_car(slot_number) {
     .catch((err) => console.log(err));
 }
 
-const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
-
 const alert = (message, type) => {
+  const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+
   alertPlaceholder.innerHTML = `<div class="alert alert-${type} alert-dismissible" role="alert">
     ${message}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>`;
 };
+
+const toLocalTimezone = () => {
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  for (row of document.getElementsByTagName("table")[0].tBodies[0].children) {
+    const date = new Date(row.children[2].innerHTML);
+    row.children[2].innerHTML = Intl.DateTimeFormat("en-US", {
+      timeZone,
+      dateStyle: "medium",
+      timeStyle: "medium",
+    }).format(date);
+  }
+};
+
+toLocalTimezone();
