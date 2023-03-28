@@ -1,4 +1,4 @@
-const controller = require("../controllers/parking-controller");
+const controller = require("../controllers/parkingController");
 const helper = require("./helper/db.helper");
 
 describe("Recent Car Suite", function () {

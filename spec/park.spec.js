@@ -1,9 +1,9 @@
 const fs = require("fs").promises;
 const path = require("path");
 
-const controller = require("../controllers/parking-controller");
+const controller = require("../controllers/parkingController");
 const helper = require("./helper/db.helper");
-const ParkingSlot = require("../models/parking-slot");
+const ParkingSlot = require("../models/parkingSlot");
 
 describe("Park Car Suite", function () {
   beforeEach(helper.newDB);

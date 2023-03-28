@@ -1,7 +1,7 @@
 const fs = require("fs").promises;
 const path = require("path");
 
-const ParkingSlot = require("../../models/parking-slot");
+const ParkingSlot = require("../../models/parkingSlot");
 
 
 exports.newDB = async () => {
@@ -15,7 +15,7 @@ exports.newDB = async () => {
 
 exports.deleteDB = async () => {
   try {
-    await fs.unlink(path.join("db", "db.json"), "utf8");
+    await fs.writeFile(path.join("db", "db.json"), "[]", "utf-8");
   } catch (err) {
     console.log(err);
   }
