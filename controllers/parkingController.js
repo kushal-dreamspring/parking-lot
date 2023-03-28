@@ -1,64 +1,62 @@
-const path = require("path");
-const Car = require("../models/car");
-const fs = require("fs").promises;
-
 const ParkingSlot = require("../models/parkingSlot");
-const decode = require("../util/decode");
+const Car = require("../models/car");
+const readAndWriteFile = require("../util/fileUtils");
 
 const lot_size = 10;
 
-exports.initialize = async () => {
-  try {
-    let lot = await fs.readFile(path.join("db", "db.json"), "utf8");
-    if (!lot) {
-      lot = [...Array(lot_size).keys()].map((i) => new ParkingSlot(i));
-      await fs.writeFile(path.join("db", "db.json"), JSON.stringify(lot));
-    }
-  } catch (err) {
-    console.log(err);
+const isCarParked = (lot, registration_number) => {
+  for (let slot of lot) {
+    const car = slot.getCar();
+    if (car && car.getRegistrationNumber() === registration_number) return true;
   }
+
+  return false;
+};
+
+const findEmptySlot = (lot) => {
+  let index = -1;
+
+  for (let i in lot) {
+    if (lot[i].isEmpty()) {
+      index = i;
+      break;
+    }
+  }
+
+  return index;
+};
+
+exports.initializeApp = async () => {
+  return readAndWriteFile((lot) => {
+    if (!lot || lot.length === 0)
+      lot = [...Array(lot_size).keys()].forEach((i) =>
+        lot.push(new ParkingSlot(i))
+      );
+
+    return lot;
+  }, true);
 };
 
 exports.parkCar = async (registration_number, timestamp) => {
-  try {
+  return readAndWriteFile((lot) => {
     if (!Car.isValidRegistrationNumber(registration_number))
       return { error: "Invalid Registration Number" };
 
-    const data = await fs.readFile(path.join("db", "db.json"), "utf8");
-    const lot = decode(data);
+    if (isCarParked(lot, registration_number))
+      return { error: "Vehicle already parked" };
 
-    for (let slot of lot) {
-      const car = slot.getCar();
-      if (car && car.getRegistrationNumber() === registration_number)
-        return { error: "Vehicle already parked" };
-    }
-
-    let index = -1;
-
-    for (let i in lot) {
-      if (lot[i].isEmpty()) {
-        lot[i].parkCar(registration_number, timestamp);
-        index = i;
-        break;
-      }
-    }
+    let index = findEmptySlot(lot);
 
     if (index === -1) return { error: "Parking Lot is Full" };
 
-    await fs.writeFile(path.join("db", "db.json"), JSON.stringify(lot));
+    lot[index].parkCar(registration_number, timestamp);
 
     return { response: index };
-  } catch (err) {
-    console.log(err);
-  }
+  }, true);
 };
 
 exports.getCarSlot = async (registration_number) => {
-  try {
-    const data = await fs.readFile(path.join("db", "db.json"), "utf8");
-
-    const lot = decode(data);
-
+  return readAndWriteFile((lot) => {
     let index = -1;
     for (const slot of lot) {
       const car = slot.getCar();
@@ -71,32 +69,19 @@ exports.getCarSlot = async (registration_number) => {
     if (index === -1) return { error: "Vehicle not found" };
 
     return { response: index };
-  } catch (err) {
-    console.log(err);
-  }
+  });
 };
 
 exports.unparkCar = async (slot_number) => {
-  try {
-    const data = await fs.readFile(path.join("db", "db.json"), "utf8");
-
-    const lot = decode(data);
+  return readAndWriteFile((lot) => {
     lot[slot_number].unparkCar();
 
-    await fs.writeFile(path.join("db", "db.json"), JSON.stringify(lot));
-
     return { response: slot_number };
-  } catch (err) {
-    console.log(err);
-  }
+  }, true);
 };
 
 exports.getRecentCars = async () => {
-  try {
-    const data = await fs.readFile(path.join("db", "db.json"), "utf8");
-
-    const lot = decode(data);
-
+  return readAndWriteFile((lot) => {
     return {
       response: lot
         .filter((el) => !el.isEmpty())
@@ -107,17 +92,11 @@ exports.getRecentCars = async () => {
           timestamp: new Date(el.timestamp).toLocaleString(),
         })),
     };
-  } catch (err) {
-    console.log(err);
-  }
+  });
 };
 
 exports.getAllCars = async () => {
-  try {
-    const data = await fs.readFile(path.join("db", "db.json"), "utf8");
-
-    const lot = decode(data);
-
+  return readAndWriteFile((lot) => {
     return {
       response: lot
         .filter((el) => !el.isEmpty())
@@ -126,7 +105,5 @@ exports.getAllCars = async () => {
           timestamp: new Date(el.timestamp).toLocaleString(),
         })),
     };
-  } catch (err) {
-    console.log(err);
-  }
+  });
 };

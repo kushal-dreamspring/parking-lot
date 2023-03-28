@@ -4,7 +4,7 @@ class ParkingSlot {
   constructor(slot_no) {
     this.car = null;
     this.slot_no = slot_no;
-    this.timestamp = 0;
+    this.timestamp = null;
   }
 
   isEmpty() {
@@ -30,7 +30,7 @@ class ParkingSlot {
 
   unparkCar() {
     this.car = null;
-    this.timestamp = 0;
+    this.timestamp = null;
   }
 }
 
