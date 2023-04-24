@@ -1,5 +1,5 @@
-const controller = require("../controllers/parkingController");
-const helper = require("./helper/db.helper");
+const controller = require("../../controllers/controller");
+const helper = require("../helper/db.helper");
 
 describe("Recent Car Suite", function () {
   beforeEach(helper.newDB);

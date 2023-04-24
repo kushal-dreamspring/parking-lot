@@ -1,0 +1,76 @@
+const Slot = require("./slot");
+
+class ParkingLot {
+  constructor(fileData) {
+    this.lot = [];
+    const data = fileData ? JSON.parse(fileData) : [];
+
+    if (!data || data.length === 0)
+      this.lot = [...Array(10).keys()].map((i) => new Slot(i));
+    else this.insertData(data);
+  }
+
+  insertData(data) {
+    this.lot = data.map((slot) => {
+      const object = new Slot(slot.slot_no);
+
+      if (slot.car)
+        object.parkCar(slot.car.registration_number, slot.timestamp);
+
+      return object;
+    });
+  }
+
+  findEmptySlot() {
+    let index = -1;
+
+    for (let i in this.lot) {
+      if (this.lot[i].isEmpty()) {
+        index = i;
+        break;
+      }
+    }
+
+    return index;
+  }
+
+  parkCar(index, registration_number, timestamp) {
+    this.lot[index].parkCar(registration_number, timestamp);
+  }
+
+  findCarSlot(registration_number) {
+    for (let slot of this.lot) {
+      const car = slot.getCar();
+      if (car && car.getRegistrationNumber() === registration_number)
+        return slot.getSlotNumber();
+    }
+
+    return -1;
+  }
+
+  unparkCar(index) {
+    this.lot[index].unparkCar();
+  }
+
+  getAllCars() {
+    return this.lot
+      .filter((el) => !el.isEmpty())
+      .map((el) => ({
+        ...el,
+        timestamp: new Date(el.timestamp).toLocaleString(),
+      }));
+  }
+
+  getRecentCars() {
+    return this.lot
+      .filter((el) => !el.isEmpty())
+      .sort((a, b) => b.getTimestamp() - a.getTimestamp())
+      .slice(0, 3)
+      .map((el) => ({
+        ...el,
+        timestamp: new Date(el.timestamp).toLocaleString(),
+      }));
+  }
+}
+
+module.exports = ParkingLot;

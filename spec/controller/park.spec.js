@@ -1,9 +1,9 @@
 const fs = require("fs").promises;
 const path = require("path");
 
-const controller = require("../controllers/parkingController");
-const helper = require("./helper/db.helper");
-const ParkingSlot = require("../models/parkingSlot");
+const controller = require("../../controllers/controller");
+const helper = require("../helper/db.helper");
+const Slot = require("../../models/slot");
 
 describe("Park Car Suite", function () {
   beforeEach(helper.newDB);
@@ -20,12 +20,12 @@ describe("Park Car Suite", function () {
 
   it("should park a car with valid registration number", async function () {
     try {
-      const registration_number = "abcdefghij";
+      const registration_number = "UP32EA7196";
       const timestamp = Date.now();
       await controller.parkCar(registration_number, timestamp);
 
       const data = await fs.readFile(path.join("db", "db.json"), "utf8");
-      const lot = [...Array(10).keys()].map((i) => new ParkingSlot(i));
+      const lot = [...Array(10).keys()].map((i) => new Slot(i));
       lot[0] = {
         car: { registration_number },
         slot_no: 0,

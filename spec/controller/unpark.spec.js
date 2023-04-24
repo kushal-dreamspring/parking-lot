@@ -1,9 +1,9 @@
 const fs = require("fs").promises;
 const path = require("path");
 
-const controller = require("../controllers/parkingController");
-const helper = require("./helper/db.helper");
-const ParkingSlot = require("../models/parkingSlot");
+const controller = require("../../controllers/controller");
+const helper = require("../helper/db.helper");
+const Slot = require("../../models/slot");
 
 describe("Unpark Car Suite", function () {
   beforeEach(helper.newDB);
@@ -28,7 +28,7 @@ describe("Unpark Car Suite", function () {
       );
 
       const data = await fs.readFile(path.join("db", "db.json"), "utf8");
-      const lot = [...Array(10).keys()].map((i) => new ParkingSlot(i));
+      const lot = [...Array(10).keys()].map((i) => new Slot(i));
 
       expect(data).toEqual(JSON.stringify(lot));
     } catch (err) {

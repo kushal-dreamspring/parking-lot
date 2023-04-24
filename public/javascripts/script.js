@@ -95,23 +95,7 @@ function get_recent_cars() {
   fetch("/recent-cars")
     .then((res) => res.json())
     .then((response) => {
-      const tbody = document.getElementById("recent-cars-table").children[1];
-      tbody.innerHTML = "";
-
-      for (let slot of response.response) {
-        const date = new Date(slot.timestamp);
-        slot.timestamp = Intl.DateTimeFormat("en-US", {
-          timeZone,
-          dateStyle: "medium",
-          timeStyle: "medium",
-        }).format(date);
-
-        tbody.innerHTML += `<tr>
-          <td>${slot.car.registration_number}</td>
-          <td>${slot.slot_no}</td>
-          <td>${slot.timestamp}</td>
-        </tr>`;
-      }
+      displayTable(document.getElementById("recent-cars-table").children[1], response)
     });
 }
 
@@ -119,15 +103,19 @@ function get_all_cars() {
   fetch("/all-cars")
     .then((res) => res.json())
     .then((response) => {
-      const tbody = document.getElementById("all-cars-table").children[1];
-      tbody.innerHTML = "";
+      displayTable(document.getElementById("all-cars-table").children[1], response)
+    });
+}
 
-      for (let slot of response.response) {
+function displayTable(tbody, response) {
+    tbody.innerHTML = "";
+
+    for (let slot of response.response) {
         const date = new Date(slot.timestamp);
         slot.timestamp = Intl.DateTimeFormat("en-US", {
-          timeZone,
-          dateStyle: "medium",
-          timeStyle: "medium",
+            timeZone,
+            dateStyle: "medium",
+            timeStyle: "medium",
         }).format(date);
 
         tbody.innerHTML += `<tr>
@@ -135,8 +123,7 @@ function get_all_cars() {
           <td>${slot.slot_no}</td>
           <td>${slot.timestamp}</td>
         </tr>`;
-      }
-    });
+    }
 }
 
 const alert = (alertPlaceholder, message, type) => {

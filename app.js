@@ -1,11 +1,11 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var logger = require("morgan");
-var hbs = require("hbs");
-const controller = require("./controllers/parkingController");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const logger = require("morgan");
+const hbs = require("hbs");
+const controller = require("./controllers/controller");
 
-var app = express();
+const app = express();
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");

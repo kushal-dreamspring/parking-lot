@@ -1,6 +1,6 @@
 const Car = require("./car");
 
-class ParkingSlot {
+class Slot {
   constructor(slot_no) {
     this.car = null;
     this.slot_no = slot_no;
@@ -34,4 +34,4 @@ class ParkingSlot {
   }
 }
 
-module.exports = ParkingSlot;
+module.exports = Slot;
