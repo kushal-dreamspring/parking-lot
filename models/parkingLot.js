@@ -21,7 +21,7 @@ class ParkingLot {
     });
   }
 
-  findEmptySlot() {
+  emptySlotIndex() {
     let index = -1;
 
     for (let i in this.lot) {

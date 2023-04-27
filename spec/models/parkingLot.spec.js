@@ -51,7 +51,7 @@ describe("Parking Lot Model Suite", function () {
     const timestamp = Date.now();
     for (let i = 0; i < 6; i++)
       lot.parkCar(
-        lot.findEmptySlot(),
+        lot.emptySlotIndex(),
         "ab12cd123" + i.toString(),
         timestamp + i * 1000
       );
@@ -70,7 +70,7 @@ describe("Parking Lot Model Suite", function () {
     const timestamp = Date.now();
     for (let i = 0; i < 6; i++)
       lot.parkCar(
-        lot.findEmptySlot(),
+        lot.emptySlotIndex(),
         "ab12cd123" + i.toString(),
         timestamp + i * 1000
       );

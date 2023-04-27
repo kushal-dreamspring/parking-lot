@@ -13,7 +13,7 @@ exports.parkCar = async (registrationNumber, timestamp) => {
     if (lot.findCarSlot(registrationNumber) !== -1)
       return { error: "Vehicle already parked" };
 
-    let index = lot.findEmptySlot();
+    let index = lot.emptySlotIndex();
 
     if (index === -1) return { error: "Parking Lot is Full" };
 
