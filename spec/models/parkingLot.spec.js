@@ -2,43 +2,46 @@ const ParkingLot = require("../../models/parkingLot");
 
 describe("Parking Lot Model Suite", function () {
   let lot = null;
+  
   beforeEach(function () {
     lot = new ParkingLot();
   });
+
   it("should create a list of 10 empty slots", function () {
-    expect(lot.lot.length).toEqual(10);
+    const size = 10;
+    expect(lot.lot.length).toEqual(size);
     expect(lot.lot[0].constructor.name).toEqual("Slot");
   });
 
   it("should park car", function () {
     const index = 0;
-    const registration_number = "UP32EA7196";
+    const registrationNumber = "UP32EA7196";
     const timestamp = Date.now();
 
-    lot.parkCar(index, registration_number, timestamp);
+    lot.parkCar(index, registrationNumber, timestamp);
 
     expect(lot.lot[index].getCar().getRegistrationNumber()).toEqual(
-      registration_number
+      registrationNumber
     );
     expect(lot.lot[index].getTimestamp()).toEqual(timestamp);
   });
 
   it("should find slot of parked car", function () {
     const index = 0;
-    const registration_number = "UP32EA7196";
+    const registrationNumber = "UP32EA7196";
     const timestamp = Date.now();
 
-    lot.parkCar(index, registration_number, timestamp);
+    lot.parkCar(index, registrationNumber, timestamp);
 
-    expect(lot.findCarSlot(registration_number)).toEqual(index);
+    expect(lot.findCarSlot(registrationNumber)).toEqual(index);
   });
 
   it("should unpark car", function () {
     const index = 0;
-    const registration_number = "UP32EA7196";
+    const registrationNumber = "UP32EA7196";
     const timestamp = Date.now();
 
-    lot.parkCar(index, registration_number, timestamp);
+    lot.parkCar(index, registrationNumber, timestamp);
     lot.unparkCar(index);
 
     expect(lot.lot[index].isEmpty()).toBeTrue();

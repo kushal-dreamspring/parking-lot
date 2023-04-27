@@ -34,14 +34,14 @@ class ParkingLot {
     return index;
   }
 
-  parkCar(index, registration_number, timestamp) {
-    this.lot[index].parkCar(registration_number, timestamp);
+  parkCar(index, registrationNumber, timestamp) {
+    this.lot[index].parkCar(registrationNumber, timestamp);
   }
 
-  findCarSlot(registration_number) {
+  findCarSlot(registrationNumber) {
     for (let slot of this.lot) {
       const car = slot.getCar();
-      if (car && car.getRegistrationNumber() === registration_number)
+      if (car && car.getRegistrationNumber() === registrationNumber)
         return slot.getSlotNumber();
     }
 

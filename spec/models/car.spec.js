@@ -9,8 +9,8 @@ describe("Car Model Suite", function () {
   });
 
   it("should return registration number of car", function () {
-    const registration_number = "UP32EA7196";
-    const c = new Car(registration_number);
-    expect(c.getRegistrationNumber()).toEqual(registration_number);
+    const registrationNumber = "UP32EA7196";
+    const car = new Car(registrationNumber);
+    expect(car.getRegistrationNumber()).toEqual(registrationNumber);
   });
 });

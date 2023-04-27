@@ -15,18 +15,18 @@ describe("Slot Model Suite", function () {
 
   it("should park car into slot", function () {
     const s = new Slot(1);
-    const registration_number = "UP32EA7196";
+    const registrationNumber = "UP32EA7196";
     const time = Date.now();
-    s.parkCar(registration_number, time);
-    expect(s.getCar().getRegistrationNumber()).toEqual(registration_number);
+    s.parkCar(registrationNumber, time);
+    expect(s.getCar().getRegistrationNumber()).toEqual(registrationNumber);
     expect(s.getTimestamp()).toEqual(time);
   });
 
   it("should unpark car from slot", function () {
     const s = new Slot(1);
-    const registration_number = "UP32EA7196";
+    const registrationNumber = "UP32EA7196";
     const time = Date.now();
-    s.parkCar(registration_number, time);
+    s.parkCar(registrationNumber, time);
     s.unparkCar();
     expect(s.getTimestamp()).toBeNull();
     expect(s.getCar()).toBeNull();

@@ -23,8 +23,8 @@ class Slot {
     return this.timestamp;
   }
 
-  parkCar(registration_number, timestamp) {
-    this.car = new Car(registration_number);
+  parkCar(registrationNumber, timestamp) {
+    this.car = new Car(registrationNumber);
     this.timestamp = timestamp;
   }
 

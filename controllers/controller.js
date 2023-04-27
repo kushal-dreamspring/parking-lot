@@ -5,27 +5,27 @@ exports.initializeApp = async () => {
   return readAndWriteFile(() => {}, true);
 };
 
-exports.parkCar = async (registration_number, timestamp) => {
+exports.parkCar = async (registrationNumber, timestamp) => {
   return readAndWriteFile((lot) => {
-    if (!Car.isValidRegistrationNumber(registration_number))
+    if (!Car.isValidRegistrationNumber(registrationNumber))
       return { error: "Invalid Registration Number" };
 
-    if (lot.findCarSlot(registration_number) !== -1)
+    if (lot.findCarSlot(registrationNumber) !== -1)
       return { error: "Vehicle already parked" };
 
     let index = lot.findEmptySlot();
 
     if (index === -1) return { error: "Parking Lot is Full" };
 
-    lot.parkCar(index, registration_number, timestamp);
+    lot.parkCar(index, registrationNumber, timestamp);
 
     return { response: index };
   }, true);
 };
 
-exports.getCarSlot = async (registration_number) => {
+exports.getCarSlot = async (registrationNumber) => {
   return readAndWriteFile((lot) => {
-    let index = lot.findCarSlot(registration_number);
+    let index = lot.findCarSlot(registrationNumber);
 
     if (index === -1) return { error: "Vehicle not found" };
 
@@ -33,11 +33,11 @@ exports.getCarSlot = async (registration_number) => {
   });
 };
 
-exports.unparkCar = async (slot_number) => {
+exports.unparkCar = async (slotNumber) => {
   return readAndWriteFile((lot) => {
-    lot.unparkCar(slot_number)
+    lot.unparkCar(slotNumber)
 
-    return { response: slot_number };
+    return { response: slotNumber };
   }, true);
 };
 

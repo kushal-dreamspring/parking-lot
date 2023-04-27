@@ -6,10 +6,11 @@ const helper = require("../helper/db.helper");
 const Slot = require("../../models/slot");
 
 describe("Initialize suite", function () {
-  beforeAll(helper.deleteDB);
-
   it("should initialize the database ", async function () {
+    await helper.deleteDB();
+    
     await controller.initializeApp();
+    
     try {
       const data = await fs.readFile(path.join("db", "db.json"), "utf8");
       const lot = JSON.stringify([...Array(10).keys()].map((i) => new Slot(i)));
@@ -18,8 +19,6 @@ describe("Initialize suite", function () {
       console.log(err);
     }
   });
-
-  // afterEach(helper.deleteDB);
 });
 
 describe("Park Car Suite", function () {
@@ -37,14 +36,14 @@ describe("Park Car Suite", function () {
 
   it("should park a car with valid registration number", async function () {
     try {
-      const registration_number = "UP32EA7196";
+      const registrationNumber = "UP32EA7196";
       const timestamp = Date.now();
-      await controller.parkCar(registration_number, timestamp);
+      await controller.parkCar(registrationNumber, timestamp);
 
       const data = await fs.readFile(path.join("db", "db.json"), "utf8");
       const lot = [...Array(10).keys()].map((i) => new Slot(i));
       lot[0] = {
-        car: { registration_number },
+        car: { registration_number: registrationNumber },
         slot_no: 0,
         timestamp,
       };
@@ -60,9 +59,9 @@ describe("Park Car Suite", function () {
       for (let i = 0; i < 10; i++)
         await controller.parkCar("ab12cd123" + i.toString(), Date.now());
 
-      const data = await controller.parkCar("ab12cd1240", Date.now());
+      const response = await controller.parkCar("ab12cd1240", Date.now());
 
-      expect(data).toEqual({ error: "Parking Lot is Full" });
+      expect(response).toEqual({ error: "Parking Lot is Full" });
     } catch (err) {
       console.log(err);
     }
@@ -72,9 +71,9 @@ describe("Park Car Suite", function () {
     try {
       await controller.parkCar("ab12cd1234", Date.now());
 
-      const data = await controller.parkCar("ab12cd1234", Date.now());
+      const response = await controller.parkCar("ab12cd1234", Date.now());
 
-      expect(data).toEqual({ error: "Vehicle already parked" });
+      expect(response).toEqual({ error: "Vehicle already parked" });
     } catch (err) {
       console.log(err);
     }
@@ -86,9 +85,9 @@ describe("Unpark Car Suite", function () {
 
   it("should not unpark a car which is not parked", async function () {
     try {
-      const data = await controller.getCarSlot("ab12cd1234");
+      const response = await controller.getCarSlot("ab12cd1234");
 
-      expect(data).toEqual({ error: "Vehicle not found" });
+      expect(response).toEqual({ error: "Vehicle not found" });
     } catch (err) {
       console.log(err);
     }
@@ -125,7 +124,7 @@ describe("Recent Car Suite", function () {
           timestamp + i * 1000
         );
 
-      const data = JSON.stringify(await controller.getRecentCars());
+      const response = JSON.stringify(await controller.getRecentCars());
       const recentCars = {
         response: [
           {
@@ -146,7 +145,7 @@ describe("Recent Car Suite", function () {
         ],
       };
 
-      expect(data).toEqual(JSON.stringify(recentCars));
+      expect(response).toEqual(JSON.stringify(recentCars));
     } catch (err) {
       console.log(err);
     }
@@ -165,7 +164,7 @@ describe("All Cars Suite", function () {
           timestamp + i * 1000
         );
 
-      const data = JSON.stringify(await controller.getAllCars());
+      const response = JSON.stringify(await controller.getAllCars());
       const recentCars = {
         response: [
           {
@@ -201,7 +200,7 @@ describe("All Cars Suite", function () {
         ],
       };
 
-      expect(data).toEqual(JSON.stringify(recentCars));
+      expect(response).toEqual(JSON.stringify(recentCars));
     } catch (err) {
       console.log(err);
     }
