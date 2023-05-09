@@ -1,21 +1,21 @@
 const Slot = require("./slot");
 
 class ParkingLot {
-  constructor(fileData) {
+  constructor(fileData, lotSize = 10) {
     this.lot = [];
     const data = fileData ? JSON.parse(fileData) : [];
 
     if (!data || data.length === 0)
-      this.lot = [...Array(10).keys()].map((i) => new Slot(i));
+      this.lot = [...Array(lotSize).keys()].map((i) => new Slot(i));
     else this.insertData(data);
   }
 
   insertData(data) {
     this.lot = data.map((slot) => {
-      const object = new Slot(slot.slot_no);
+      const object = new Slot(slot.slotNo);
 
       if (slot.car)
-        object.parkCar(slot.car.registration_number, slot.timestamp);
+        object.parkCar(slot.car.registrationNumber, slot.timestamp);
 
       return object;
     });

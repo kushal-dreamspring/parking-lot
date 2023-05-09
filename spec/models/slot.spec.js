@@ -2,9 +2,9 @@ const Slot = require("../../models/slot");
 
 describe("Slot Model Suite", function () {
   it("should return slot number", function () {
-    const slot__no = 1;
-    const s = new Slot(slot__no);
-    expect(s.getSlotNumber()).toEqual(slot__no);
+    const slotNo = 1;
+    const s = new Slot(slotNo);
+    expect(s.getSlotNumber()).toEqual(slotNo);
   });
 
   it("should create slots with no car and timestamp", function () {

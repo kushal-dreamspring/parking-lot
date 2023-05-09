@@ -27,7 +27,7 @@ hbs.registerPartials(path.join(__dirname, "views", "partials"));
 
 app.post("/park", function (req, res, next) {
   controller
-    .parkCar(req.body.registration_number, req.body.timestamp)
+    .parkCar(req.body.registrationNumber, req.body.timestamp)
     .then((response) => {
       if (response.error) res.status(400).send(response);
       else res.send(response);
@@ -35,14 +35,14 @@ app.post("/park", function (req, res, next) {
 });
 
 app.get("/car-slot", function (req, res, next) {
-  controller.getCarSlot(req.query.registration_number).then((response) => {
+  controller.getCarSlot(req.query.registrationNumber).then((response) => {
     if (response.error) res.status(400).send(response);
     else res.send(response);
   });
 });
 
 app.post("/unpark", function (req, res, next) {
-  controller.unparkCar(req.body.slot_number).then((response) => {
+  controller.unparkCar(req.body.slotNumber).then((response) => {
     if (response.error) res.status(400).send(response);
     else res.send(response);
   });
@@ -52,7 +52,7 @@ app.get("/", function (req, res, next) {
   controller.initializeApp().then(() => {
     res.render("index", {
       title: "Park Car | Kushal Parking",
-      active: { park_car: true },
+      active: { parkCar: true },
     });
   });
 });

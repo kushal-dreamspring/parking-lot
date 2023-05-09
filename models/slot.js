@@ -1,9 +1,9 @@
 const Car = require("./car");
 
 class Slot {
-  constructor(slot_no) {
+  constructor(slotNo) {
     this.car = null;
-    this.slot_no = slot_no;
+    this.slotNo = slotNo;
     this.timestamp = null;
   }
 
@@ -16,7 +16,7 @@ class Slot {
   }
 
   getSlotNumber() {
-    return this.slot_no;
+    return this.slotNo;
   }
 
   getTimestamp() {

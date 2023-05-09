@@ -1,6 +1,6 @@
 const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-function park_car(event) {
+function parkCar(event) {
   event.preventDefault();
   const alertPlaceholder = document.getElementById("parkAlertPlaceholder");
   const registrationNumber = event.target[0].value;
@@ -34,12 +34,12 @@ function park_car(event) {
     });
 }
 
-function get_car_slot(event) {
+function getCarSlot(event) {
   event.preventDefault();
   const alertPlaceholder = document.getElementById("findAlertPlaceholder");
   const registrationNumber = event.target[0].value;
 
-  fetch(`/car-slot?registration_number=${registrationNumber}`)
+  fetch(`/car-slot?registrationNumber=${registrationNumber}`)
     .then((res) => res.json())
     .then((res) => {
       if (res.error) alert(alertPlaceholder, res.error, "danger");
@@ -50,7 +50,7 @@ function get_car_slot(event) {
             <h4 class="alert-heading">Car Found!</h4>
             <p>Your Car is Parked at Slot <strong id="slot" class="text-success">${res.response}</strong></p>
             <hr>
-            <button type="button" class="btn btn-success" onclick="unpark_car(${res.response})">Unpark Car</button>
+            <button type="button" class="btn btn-success" onclick="unparkCar(${res.response})">Unpark Car</button>
           `,
           "success"
         );
@@ -62,7 +62,7 @@ function get_car_slot(event) {
     });
 }
 
-function unpark_car(slotNumber) {
+function unparkCar(slotNumber) {
   const alertPlaceholder = document.getElementById("findAlertPlaceholder");
 
   fetch("/unpark", {
@@ -91,7 +91,7 @@ function unpark_car(slotNumber) {
     .catch((err) => console.log(err));
 }
 
-function get_recent_cars() {
+function getRecentCars() {
   fetch("/recent-cars")
     .then((res) => res.json())
     .then((response) => {
@@ -102,7 +102,7 @@ function get_recent_cars() {
     });
 }
 
-function get_all_cars() {
+function getAllCars() {
   fetch("/all-cars")
     .then((res) => res.json())
     .then((response) => {
@@ -125,8 +125,8 @@ function displayTable(tbody, response) {
     }).format(date);
 
     tbody.innerHTML += `<tr>
-          <td>${slot.car.registration_number}</td>
-          <td>${slot.slot_no}</td>
+          <td>${slot.car.registrationNumber}</td>
+          <td>${slot.slotNo}</td>
           <td>${slot.timestamp}</td>
         </tr>`;
   }

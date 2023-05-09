@@ -43,8 +43,8 @@ describe("Park Car Suite", function () {
       const data = await fs.readFile(path.join("db", "db.json"), "utf8");
       const lot = [...Array(10).keys()].map((i) => new Slot(i));
       lot[0] = {
-        car: { registration_number: registrationNumber },
-        slot_no: 0,
+        car: { registrationNumber: registrationNumber },
+        slotNo: 0,
         timestamp,
       };
 
@@ -128,18 +128,18 @@ describe("Recent Car Suite", function () {
       const recentCars = {
         response: [
           {
-            car: { registration_number: "ab12cd1235" },
-            slot_no: 5,
+            car: { registrationNumber: "ab12cd1235" },
+            slotNo: 5,
             timestamp: new Date(timestamp + 5000).toLocaleString(),
           },
           {
-            car: { registration_number: "ab12cd1234" },
-            slot_no: 4,
+            car: { registrationNumber: "ab12cd1234" },
+            slotNo: 4,
             timestamp: new Date(timestamp + 4000).toLocaleString(),
           },
           {
-            car: { registration_number: "ab12cd1233" },
-            slot_no: 3,
+            car: { registrationNumber: "ab12cd1233" },
+            slotNo: 3,
             timestamp: new Date(timestamp + 3000).toLocaleString(),
           },
         ],
@@ -165,42 +165,42 @@ describe("All Cars Suite", function () {
         );
 
       const response = JSON.stringify(await controller.getAllCars());
-      const recentCars = {
+      const allCars = {
         response: [
           {
-            car: { registration_number: "ab12cd1230" },
-            slot_no: 0,
+            car: { registrationNumber: "ab12cd1230" },
+            slotNo: 0,
             timestamp: new Date(timestamp).toLocaleString(),
           },
           {
-            car: { registration_number: "ab12cd1231" },
-            slot_no: 1,
+            car: { registrationNumber: "ab12cd1231" },
+            slotNo: 1,
             timestamp: new Date(timestamp + 1000).toLocaleString(),
           },
           {
-            car: { registration_number: "ab12cd1232" },
-            slot_no: 2,
+            car: { registrationNumber: "ab12cd1232" },
+            slotNo: 2,
             timestamp: new Date(timestamp + 2000).toLocaleString(),
           },
           {
-            car: { registration_number: "ab12cd1233" },
-            slot_no: 3,
+            car: { registrationNumber: "ab12cd1233" },
+            slotNo: 3,
             timestamp: new Date(timestamp + 3000).toLocaleString(),
           },
           {
-            car: { registration_number: "ab12cd1234" },
-            slot_no: 4,
+            car: { registrationNumber: "ab12cd1234" },
+            slotNo: 4,
             timestamp: new Date(timestamp + 4000).toLocaleString(),
           },
           {
-            car: { registration_number: "ab12cd1235" },
-            slot_no: 5,
+            car: { registrationNumber: "ab12cd1235" },
+            slotNo: 5,
             timestamp: new Date(timestamp + 5000).toLocaleString(),
           },
         ],
       };
 
-      expect(response).toEqual(JSON.stringify(recentCars));
+      expect(response).toEqual(JSON.stringify(allCars));
     } catch (err) {
       console.log(err);
     }

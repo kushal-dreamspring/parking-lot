@@ -1,6 +1,6 @@
 class Car {
   constructor(registrationNumber) {
-    this.registration_number = registrationNumber;
+    this.registrationNumber = registrationNumber;
   }
 
   static isValidRegistrationNumber(registrationNumber) {
@@ -9,7 +9,7 @@ class Car {
   }
 
   getRegistrationNumber() {
-    return this.registration_number;
+    return this.registrationNumber;
   }
 }
 
