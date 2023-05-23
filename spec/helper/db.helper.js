@@ -3,10 +3,10 @@ const path = require("path");
 
 const Slot = require("../../models/slot");
 
-
 exports.newDB = async () => {
   try {
-    const lot = [...Array(10).keys()].map((i) => new Slot(i));
+    const lotSize = 10;
+    const lot = [...Array(lotSize).keys()].map((i) => new Slot(i));
     await fs.writeFile(path.join("db", "db.json"), JSON.stringify(lot));
   } catch (err) {
     console.log(err);

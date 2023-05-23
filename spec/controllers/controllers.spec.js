@@ -6,14 +6,18 @@ const helper = require("../helper/db.helper");
 const Slot = require("../../models/slot");
 
 describe("Initialize suite", function () {
+  const lotSize = 10;
+
   it("should initialize the database ", async function () {
     await helper.deleteDB();
-    
+
     await controller.initializeApp();
-    
+
     try {
       const data = await fs.readFile(path.join("db", "db.json"), "utf8");
-      const lot = JSON.stringify([...Array(10).keys()].map((i) => new Slot(i)));
+      const lot = JSON.stringify(
+        [...Array(lotSize).keys()].map((i) => new Slot(i))
+      );
       expect(data).toEqual(lot);
     } catch (err) {
       console.log(err);
@@ -22,6 +26,8 @@ describe("Initialize suite", function () {
 });
 
 describe("Park Car Suite", function () {
+  const lotSize = 10;
+
   beforeEach(helper.newDB);
 
   it("should not park a car with invalid registration number", async function () {
@@ -41,7 +47,7 @@ describe("Park Car Suite", function () {
       await controller.parkCar(registrationNumber, timestamp);
 
       const data = await fs.readFile(path.join("db", "db.json"), "utf8");
-      const lot = [...Array(10).keys()].map((i) => new Slot(i));
+      const lot = [...Array(lotSize).keys()].map((i) => new Slot(i));
       lot[0] = {
         car: { registrationNumber: registrationNumber },
         slotNo: 0,
@@ -54,9 +60,9 @@ describe("Park Car Suite", function () {
     }
   });
 
-  it("should not park more than 10 cars", async function () {
+  it("should not park more than size of parking lot", async function () {
     try {
-      for (let i = 0; i < 10; i++)
+      for (let i = 0; i < lotSize; i++)
         await controller.parkCar("ab12cd123" + i.toString(), Date.now());
 
       const response = await controller.parkCar("ab12cd1240", Date.now());
@@ -81,6 +87,8 @@ describe("Park Car Suite", function () {
 });
 
 describe("Unpark Car Suite", function () {
+  const lotSize = 10;
+
   beforeEach(helper.newDB);
 
   it("should not unpark a car which is not parked", async function () {
@@ -103,7 +111,7 @@ describe("Unpark Car Suite", function () {
       );
 
       const data = await fs.readFile(path.join("db", "db.json"), "utf8");
-      const lot = [...Array(10).keys()].map((i) => new Slot(i));
+      const lot = [...Array(lotSize).keys()].map((i) => new Slot(i));
 
       expect(data).toEqual(JSON.stringify(lot));
     } catch (err) {
@@ -113,10 +121,10 @@ describe("Unpark Car Suite", function () {
 });
 
 describe("Recent Car Suite", function () {
-  beforeEach(helper.newDB);
-
   it("should fetch recent 3 recently parked cars", async function () {
     try {
+      await helper.newDB();
+
       const timestamp = Date.now();
       for (let i = 0; i < 6; i++)
         await controller.parkCar(
@@ -153,10 +161,10 @@ describe("Recent Car Suite", function () {
 });
 
 describe("All Cars Suite", function () {
-  beforeEach(helper.newDB);
-
   it("should fetch all parked cars", async function () {
     try {
+      await helper.newDB();
+
       const timestamp = Date.now();
       for (let i = 0; i < 6; i++)
         await controller.parkCar(

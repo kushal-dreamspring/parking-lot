@@ -1,7 +1,9 @@
 const Slot = require("./slot");
 
+const DEFAULT_LOT_SIZE = 10;
+
 class ParkingLot {
-  constructor(fileData, lotSize = 10) {
+  constructor(fileData, lotSize = DEFAULT_LOT_SIZE) {
     this.lot = [];
     const data = fileData ? JSON.parse(fileData) : [];
 
@@ -14,8 +16,7 @@ class ParkingLot {
     this.lot = data.map((slot) => {
       const object = new Slot(slot.slotNo);
 
-      if (slot.car)
-        object.parkCar(slot.car.registrationNumber, slot.timestamp);
+      if (slot.car) object.parkCar(slot.car.registrationNumber, slot.timestamp);
 
       return object;
     });

@@ -7,7 +7,7 @@ describe("Parking Lot Model Suite", function () {
     lot = new ParkingLot();
   });
 
-  it("should create a list of 10 empty slots", function () {
+  it("should create a list of empty slots of length of lotSize", function () {
     const size = 10;
     expect(lot.lot.length).toEqual(size);
     expect(lot.lot[0].constructor.name).toEqual("Slot");
