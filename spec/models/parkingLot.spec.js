@@ -1,5 +1,6 @@
 const ParkingLot = require("../../models/parkingLot");
-const helper = require("../helper/db.helper");
+
+const { DEFAULT_LOT_SIZE } = require('../../config/constants')
 
 describe("Parking Lot Model Suite", function () {
   let lot = null;
@@ -9,7 +10,7 @@ describe("Parking Lot Model Suite", function () {
   });
 
   it("should create a list of empty slots of length of lotSize", function () {
-    const size = helper.DEFAULT_LOT_SIZE;
+    const size = DEFAULT_LOT_SIZE;
     expect(lot.lot.length).toEqual(size);
     expect(lot.lot[0].constructor.name).toEqual("Slot");
   });

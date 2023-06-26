@@ -1,6 +1,5 @@
 const Slot = require("./slot");
-
-const DEFAULT_LOT_SIZE = 10;
+const { DEFAULT_LOT_SIZE } = require('../config/constants')
 
 class ParkingLot {
   constructor(fileData, lotSize = DEFAULT_LOT_SIZE) {

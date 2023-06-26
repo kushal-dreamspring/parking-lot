@@ -5,8 +5,11 @@ const controller = require("../../controllers/controller");
 const helper = require("../helper/db.helper");
 const Slot = require("../../models/slot");
 
+const { DEFAULT_LOT_SIZE } = require('../../config/constants')
+
+
 describe("Initialize suite", function () {
-  const lotSize = helper.DEFAULT_LOT_SIZE;
+  const lotSize = DEFAULT_LOT_SIZE;
 
   it("should initialize the database ", async function () {
     await helper.deleteDB();
@@ -26,7 +29,7 @@ describe("Initialize suite", function () {
 });
 
 describe("Park Car Suite", function () {
-  const lotSize = helper.DEFAULT_LOT_SIZE;
+  const lotSize = DEFAULT_LOT_SIZE;
 
   beforeEach(helper.newDB);
 
@@ -87,7 +90,7 @@ describe("Park Car Suite", function () {
 });
 
 describe("Unpark Car Suite", function () {
-  const lotSize = helper.DEFAULT_LOT_SIZE;
+  const lotSize = DEFAULT_LOT_SIZE;
 
   beforeEach(helper.newDB);
 
