@@ -1,12 +1,11 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var hbs = require("hbs");
-const controller = require("./controllers/parkingController");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const logger = require("morgan");
+const hbs = require("hbs");
+const controller = require("./controllers/controller");
 
-var app = express();
+const app = express();
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
@@ -14,7 +13,6 @@ app.set("view engine", "hbs");
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static("public"));
 app.use(
   "/stylesheets",
@@ -29,7 +27,7 @@ hbs.registerPartials(path.join(__dirname, "views", "partials"));
 
 app.post("/park", function (req, res, next) {
   controller
-    .parkCar(req.body.registration_number, req.body.timestamp)
+    .parkCar(req.body.registrationNumber, req.body.timestamp)
     .then((response) => {
       if (response.error) res.status(400).send(response);
       else res.send(response);
@@ -37,24 +35,24 @@ app.post("/park", function (req, res, next) {
 });
 
 app.get("/car-slot", function (req, res, next) {
-  controller.getCarSlot(req.query.registration_number).then((response) => {
+  controller.getCarSlot(req.query.registrationNumber).then((response) => {
     if (response.error) res.status(400).send(response);
     else res.send(response);
   });
 });
 
 app.post("/unpark", function (req, res, next) {
-  controller.unparkCar(req.body.slot_number).then((response) => {
+  controller.unparkCar(req.body.slotNumber).then((response) => {
     if (response.error) res.status(400).send(response);
     else res.send(response);
   });
 });
 
 app.get("/", function (req, res, next) {
-  controller.initialize().then(() => {
+  controller.initializeApp().then(() => {
     res.render("index", {
       title: "Park Car | Kushal Parking",
-      active: { park_car: true },
+      active: { parkCar: true },
     });
   });
 });

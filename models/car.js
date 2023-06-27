@@ -1,15 +1,15 @@
 class Car {
-  constructor(registration_number) {
-    this.registration_number = registration_number;
+  constructor(registrationNumber) {
+    this.registrationNumber = registrationNumber;
   }
 
-  static isValidRegistrationNumber(registration_number) {
-    const regex = /^[A-Za-z]{2}\w{8}$/;
-    return regex.test(registration_number);
+  static isValidRegistrationNumber(registrationNumber) {
+    const regex = /^[A-Za-z]{2}[a-zA-Z0-9]{8}$/;
+    return regex.test(registrationNumber);
   }
 
   getRegistrationNumber() {
-    return this.registration_number;
+    return this.registrationNumber;
   }
 }
 

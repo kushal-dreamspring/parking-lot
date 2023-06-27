@@ -1,9 +1,9 @@
 const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-function park_car(event) {
+function parkCar(event) {
   event.preventDefault();
   const alertPlaceholder = document.getElementById("parkAlertPlaceholder");
-  const registration_number = event.target[0].value;
+  const registrationNumber = event.target[0].value;
 
   fetch("/park", {
     method: "POST",
@@ -11,7 +11,7 @@ function park_car(event) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      registration_number,
+      registrationNumber,
       timestamp: Date.now(),
     }),
   })
@@ -34,12 +34,12 @@ function park_car(event) {
     });
 }
 
-function get_car_slot(event) {
+function getCarSlot(event) {
   event.preventDefault();
   const alertPlaceholder = document.getElementById("findAlertPlaceholder");
-  const registration_number = event.target[0].value;
+  const registrationNumber = event.target[0].value;
 
-  fetch(`/car-slot?registration_number=${registration_number}`)
+  fetch(`/car-slot?registrationNumber=${registrationNumber}`)
     .then((res) => res.json())
     .then((res) => {
       if (res.error) alert(alertPlaceholder, res.error, "danger");
@@ -50,7 +50,7 @@ function get_car_slot(event) {
             <h4 class="alert-heading">Car Found!</h4>
             <p>Your Car is Parked at Slot <strong id="slot" class="text-success">${res.response}</strong></p>
             <hr>
-            <button type="button" class="btn btn-success" onclick="unpark_car(${res.response})">Unpark Car</button>
+            <button type="button" class="btn btn-success" onclick="unparkCar(${res.response})">Unpark Car</button>
           `,
           "success"
         );
@@ -62,7 +62,7 @@ function get_car_slot(event) {
     });
 }
 
-function unpark_car(slot_number) {
+function unparkCar(slotNumber) {
   const alertPlaceholder = document.getElementById("findAlertPlaceholder");
 
   fetch("/unpark", {
@@ -71,7 +71,7 @@ function unpark_car(slot_number) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      slot_number,
+      slotNumber,
     }),
   })
     .then((res) => res.json())
@@ -91,52 +91,45 @@ function unpark_car(slot_number) {
     .catch((err) => console.log(err));
 }
 
-function get_recent_cars() {
+function getRecentCars() {
   fetch("/recent-cars")
     .then((res) => res.json())
     .then((response) => {
-      const tbody = document.getElementById("recent-cars-table").children[1];
-      tbody.innerHTML = "";
-
-      for (let slot of response.response) {
-        const date = new Date(slot.timestamp);
-        slot.timestamp = Intl.DateTimeFormat("en-US", {
-          timeZone,
-          dateStyle: "medium",
-          timeStyle: "medium",
-        }).format(date);
-
-        tbody.innerHTML += `<tr>
-          <td>${slot.car.registration_number}</td>
-          <td>${slot.slot_no}</td>
-          <td>${slot.timestamp}</td>
-        </tr>`;
-      }
+      displayTable(
+        document.getElementById("recent-cars-table").children[1],
+        response
+      );
     });
 }
 
-function get_all_cars() {
+function getAllCars() {
   fetch("/all-cars")
     .then((res) => res.json())
     .then((response) => {
-      const tbody = document.getElementById("all-cars-table").children[1];
-      tbody.innerHTML = "";
+      displayTable(
+        document.getElementById("all-cars-table").children[1],
+        response
+      );
+    });
+}
 
-      for (let slot of response.response) {
-        const date = new Date(slot.timestamp);
-        slot.timestamp = Intl.DateTimeFormat("en-US", {
-          timeZone,
-          dateStyle: "medium",
-          timeStyle: "medium",
-        }).format(date);
+function displayTable(tbody, response) {
+  tbody.innerHTML = "";
 
-        tbody.innerHTML += `<tr>
-          <td>${slot.car.registration_number}</td>
-          <td>${slot.slot_no}</td>
+  for (let slot of response.response) {
+    const date = new Date(slot.timestamp);
+    slot.timestamp = Intl.DateTimeFormat("en-US", {
+      timeZone,
+      dateStyle: "medium",
+      timeStyle: "medium",
+    }).format(date);
+
+    tbody.innerHTML += `<tr>
+          <td>${slot.car.registrationNumber}</td>
+          <td>${slot.slotNo}</td>
           <td>${slot.timestamp}</td>
         </tr>`;
-      }
-    });
+  }
 }
 
 const alert = (alertPlaceholder, message, type) => {

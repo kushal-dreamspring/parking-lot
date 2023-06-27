@@ -1,0 +1,1 @@
+exports.DEFAULT_LOT_SIZE = 10;

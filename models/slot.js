@@ -1,10 +1,10 @@
 const Car = require("./car");
 
-class ParkingSlot {
-  constructor(slot_no) {
+class Slot {
+  constructor(slotNo) {
     this.car = null;
-    this.slot_no = slot_no;
-    this.timestamp = 0;
+    this.slotNo = slotNo;
+    this.timestamp = null;
   }
 
   isEmpty() {
@@ -16,22 +16,22 @@ class ParkingSlot {
   }
 
   getSlotNumber() {
-    return this.slot_no;
+    return this.slotNo;
   }
 
   getTimestamp() {
     return this.timestamp;
   }
 
-  parkCar(registration_number, timestamp) {
-    this.car = new Car(registration_number);
+  parkCar(registrationNumber, timestamp) {
+    this.car = new Car(registrationNumber);
     this.timestamp = timestamp;
   }
 
   unparkCar() {
     this.car = null;
-    this.timestamp = 0;
+    this.timestamp = null;
   }
 }
 
-module.exports = ParkingSlot;
+module.exports = Slot;
