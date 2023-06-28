@@ -56,10 +56,7 @@ function getCarSlot(event) {
         );
       }
     })
-    .catch((err) => console.log(err))
-    .finally(() => {
-      event.target[0].value = "";
-    });
+    .catch((err) => console.log(err));
 }
 
 function unparkCar(slotNumber) {
@@ -88,7 +85,10 @@ function unparkCar(slotNumber) {
         );
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
+    .finally(() => {
+      document.querySelectorAll("form")[1].reset();
+    });
 }
 
 function getRecentCars() {
