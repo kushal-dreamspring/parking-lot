@@ -138,4 +138,9 @@ const alert = (alertPlaceholder, message, type) => {
     ${message}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>`;
+  setTimeout(() => hideAlert(alertPlaceholder), 5000);
 };
+
+const hideAlert = (alertPlaceholder) => {
+  alertPlaceholder.innerHTML = '';
+}
