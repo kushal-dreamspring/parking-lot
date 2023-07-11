@@ -27,7 +27,7 @@ exports.getCarSlot = async (registrationNumber) => {
   return readAndWriteFile((lot) => {
     let index = lot.findCarSlot(registrationNumber);
 
-    if (index === -1) return { error: "Vehicle not found" };
+    if (index === -1) return { error: `Car ${registrationNumber} not found` };
 
     return { response: index };
   });

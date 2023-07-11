@@ -23,7 +23,7 @@ function parkCar(event) {
           alertPlaceholder,
           `
             <h4 class="alert-heading">Car Parked!</h4>
-            <p>Your Car has been parked at Slot <strong id="slot" class="text-success">${res.response}</strong></p>
+            <p>Your Car ${registrationNumber} has been parked at Slot <strong id="slot" class="text-success">${res.response}</strong></p>
             `,
           "success"
         );
@@ -48,7 +48,7 @@ function getCarSlot(event) {
           alertPlaceholder,
           `
             <h4 class="alert-heading">Car Found!</h4>
-            <p>Your Car is Parked at Slot <strong id="slot" class="text-success">${res.response}</strong></p>
+            <p>Your Car ${registrationNumber} is Parked at Slot <strong id="slot" class="text-success">${res.response}</strong></p>
             <hr>
             <button type="button" class="btn btn-success" onclick="unparkCar(${res.response})">Unpark Car</button>
           `,
@@ -61,6 +61,7 @@ function getCarSlot(event) {
 
 function unparkCar(slotNumber) {
   const alertPlaceholder = document.getElementById("findAlertPlaceholder");
+  const registrationNumber = document.querySelectorAll('#registrationNumber')[1].value;
 
   fetch("/unpark", {
     method: "POST",
@@ -79,7 +80,7 @@ function unparkCar(slotNumber) {
           alertPlaceholder,
           `
             <h4 class="alert-heading">Car Unparked!</h4>
-            <p>Your Car is unparked from Slot <strong id="slot" class="text-success">${res.response}</strong></p>
+            <p>Your Car ${registrationNumber} is unparked from Slot <strong id="slot" class="text-success">${res.response}</strong></p>
           `,
           "success"
         );
@@ -137,4 +138,9 @@ const alert = (alertPlaceholder, message, type) => {
     ${message}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>`;
+  setTimeout(() => hideAlert(alertPlaceholder), 5000);
 };
+
+const hideAlert = (alertPlaceholder) => {
+  alertPlaceholder.innerHTML = '';
+}
