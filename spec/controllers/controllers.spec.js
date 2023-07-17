@@ -98,7 +98,7 @@ describe("Unpark Car Suite", function () {
     try {
       const response = await controller.getCarSlot("ab12cd1234");
 
-      expect(response).toEqual({ error: "Vehicle not found" });
+      expect(response).toEqual({ error: "Car ab12cd1234 not found" });
     } catch (err) {
       console.log(err);
     }

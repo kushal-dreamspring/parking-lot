@@ -52,7 +52,8 @@ function getCarSlot(event) {
             <hr>
             <button type="button" class="btn btn-success" onclick="unparkCar(${res.response})">Unpark Car</button>
           `,
-          "success"
+          "success",
+          false
         );
       }
     })
@@ -61,7 +62,8 @@ function getCarSlot(event) {
 
 function unparkCar(slotNumber) {
   const alertPlaceholder = document.getElementById("findAlertPlaceholder");
-  const registrationNumber = document.querySelectorAll('#registrationNumber')[1].value;
+  const registrationNumber = document.querySelectorAll("#registrationNumber")[1]
+    .value;
 
   fetch("/unpark", {
     method: "POST",
@@ -133,14 +135,14 @@ function displayTable(tbody, response) {
   }
 }
 
-const alert = (alertPlaceholder, message, type) => {
+const alert = (alertPlaceholder, message, type, hide = true) => {
   alertPlaceholder.innerHTML = `<div class="alert alert-${type} alert-dismissible" role="alert">
     ${message}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>`;
-  setTimeout(() => hideAlert(alertPlaceholder), 5000);
+  if (hide) setTimeout(() => hideAlert(alertPlaceholder), 5000);
 };
 
 const hideAlert = (alertPlaceholder) => {
-  alertPlaceholder.innerHTML = '';
-}
+  alertPlaceholder.innerHTML = "";
+};
